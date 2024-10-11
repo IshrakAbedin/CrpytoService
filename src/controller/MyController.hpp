@@ -1,10 +1,11 @@
 #pragma once
 
-#include "dto/MessageDTO.hpp"
-
 #include "oatpp/web/server/api/ApiController.hpp"
 #include "oatpp/core/macro/codegen.hpp"
 #include "oatpp/core/macro/component.hpp"
+
+#include "controller/ControllerComponent.hpp"
+#include "dto/MessageDTO.hpp"
 
 #include OATPP_CODEGEN_BEGIN(ApiController) ///< Begin Codegen
 
@@ -28,9 +29,6 @@ public:
         dto->message = "Hello World!";
         return createDtoResponse(Status::CODE_200, dto);
     }
-
-    // TODO Insert Your endpoints here !!!
-
 };
 
 #include OATPP_CODEGEN_END(ApiController) ///< End Codegen
