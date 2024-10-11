@@ -1,6 +1,8 @@
+
 #include "AppComponent.hpp"
-#include "controller/MyController.hpp"
+#include "controller/ControllerComponent.hpp"
 #include "controller/CryptoController.hpp"
+#include "controller/MyController.hpp"
 
 #include "oatpp/network/Server.hpp"
 
@@ -8,15 +10,14 @@
 static void run() {
 
     /* Register Components in scope of run() method */
-    AppComponent components;
+    AppComponent appComponents;
+    ControllerComponent controllerComponents;
 
     /* Get router component */
     OATPP_COMPONENT(std::shared_ptr<oatpp::web::server::HttpRouter>, router);
 
     /* Create MyController and add all of its endpoints to router */
-    auto myController = std::make_shared<MyController>();
-    router->addController(myController);
-
+    router->addController(std::make_shared<MyController>());
     router->addController(std::make_shared<CryptoController>());
 
     /* Get connection handler component */
@@ -47,5 +48,4 @@ int main() {
     oatpp::base::Environment::destroy();
 
     return 0;
-
 }

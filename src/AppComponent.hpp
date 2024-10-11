@@ -1,7 +1,5 @@
 #pragma once
 
-#include "oatpp/parser/json/mapping/ObjectMapper.hpp"
-
 #include "oatpp/web/server/HttpConnectionHandler.hpp"
 #include "oatpp/network/tcp/server/ConnectionProvider.hpp"
 
@@ -35,12 +33,4 @@ public:
 		OATPP_COMPONENT(std::shared_ptr<oatpp::web::server::HttpRouter>, router); // get Router component
 		return oatpp::web::server::HttpConnectionHandler::createShared(router);
 		}());
-
-	/**
-	 *  Create ObjectMapper component to serialize/deserialize DTOs in Contoller's API
-	 */
-	OATPP_CREATE_COMPONENT(std::shared_ptr<oatpp::data::mapping::ObjectMapper>, apiObjectMapper)([] {
-		return oatpp::parser::json::mapping::ObjectMapper::createShared();
-		}());
-
 };
