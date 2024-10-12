@@ -16,6 +16,7 @@ workspace "CryptoService"
    includedirs {
       "./external/oatpp/include",
       "./external/magic_enum/include",
+      "./external/toml++/include",
       "./src",
     }
 

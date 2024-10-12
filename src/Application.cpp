@@ -1,4 +1,4 @@
-
+#include "ServerConfig.hpp"
 #include "AppComponent.hpp"
 #include "controller/ControllerComponent.hpp"
 #include "controller/CryptoController.hpp"
@@ -6,11 +6,15 @@
 
 #include "oatpp/network/Server.hpp"
 
+constexpr auto CONFIG_FILE_PATH = "./config.toml";
 
 static void run() {
 
+    /* Create a server configuration from file */
+    ServerConfig config{ CONFIG_FILE_PATH };
+
     /* Register Components in scope of run() method */
-    AppComponent appComponents;
+    AppComponent appComponents{ config };
     ControllerComponent controllerComponents;
 
     /* Get router component */
@@ -29,8 +33,11 @@ static void run() {
     /* Create server which takes provided TCP connections and passes them to HTTP connection handler */
     oatpp::network::Server server(connectionProvider, connectionHandler);
 
-    /* Priny info about server port */
-    OATPP_LOGI("CryptoService", "Server running on port %s", connectionProvider->getProperty("port").std_str().c_str());
+    /* Print info about server host and port */
+    OATPP_LOGI("CryptoService", "Server running on <%s:%s>",
+        connectionProvider->getProperty("host").std_str().c_str(),
+        connectionProvider->getProperty("port").std_str().c_str()
+    );
 
     /* Run server */
     server.run();
